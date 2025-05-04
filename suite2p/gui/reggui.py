@@ -24,6 +24,7 @@ class BinaryPlayer(QMainWindow):
 
     def __init__(self, parent=None):
         super(BinaryPlayer, self).__init__(parent)
+        self.khzstim = parent.khzstim
         pg.setConfigOptions(imageAxisOrder="row-major")
         self.setGeometry(70, 70, 1070, 1070)
         self.setWindowTitle("View registered binary")
@@ -98,14 +99,14 @@ class BinaryPlayer(QMainWindow):
         self.Zedit.setAlignment(QtCore.Qt.AlignRight)
         self.l0.addWidget(self.Zedit, 0, 10, 1, 1)
 
-        self.p1 = self.win.addPlot(name="plot_shift", row=1, col=0, colspan=2)
+        self.p1 = self.win.addPlot(name="plot_shift", row=2, col=0, colspan=2)
         self.p1.setMouseEnabled(x=True, y=False)
         self.p1.setMenuEnabled(False)
         self.scatter1 = pg.ScatterPlotItem()
         self.scatter1.setData([0, 0], [0, 0])
         self.p1.addItem(self.scatter1)
 
-        self.p2 = self.win.addPlot(name="plot_F", row=2, col=0, colspan=2)
+        self.p2 = self.win.addPlot(name="plot_F", row=1, col=0, colspan=2)
         self.p2.setMouseEnabled(x=True, y=False)
         self.p2.setMenuEnabled(False)
         self.scatter2 = pg.ScatterPlotItem()
@@ -187,6 +188,8 @@ class BinaryPlayer(QMainWindow):
                 self.iscell = parent.iscell
                 self.Floaded = True
                 self.openFile(filename, True)
+
+        
 
     def add_masks(self):
         if self.loaded:
@@ -353,6 +356,8 @@ class BinaryPlayer(QMainWindow):
         self.p2.setRange(xRange=(0, self.nframes),
                          yRange=(self.ft.min(), self.ft.max()), padding=0.0)
         self.p2.setLimits(xMin=0, xMax=self.nframes)
+        print(self.khzstim)
+        self.khzstim.plot_stim(self.p2)
 
     def open(self):
         filename = QFileDialog.getOpenFileName(self, "Open single-plane ops.npy file or single-plane ops.json file")

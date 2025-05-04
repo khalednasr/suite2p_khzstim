@@ -96,7 +96,7 @@ class MainWindow(QMainWindow):
         b0 = self.make_buttons()
         self.make_graphics(b0)
         # so they"re on top of plot, draw last
-        buttons.make_quadrants(self)
+        # buttons.make_quadrants(self)
 
         # initialize merges
         self.merged = []
@@ -243,7 +243,7 @@ class MainWindow(QMainWindow):
         self.win = pg.GraphicsLayoutWidget()
         self.win.move(600, 0)
         self.win.resize(1000, 500)
-        self.l0.addWidget(self.win, 1, 2, b0 - 1, 30)
+        self.l0.addWidget(self.win, 1, 2, b0 - 1, 15)
         layout = self.win.ci.layout
         # --- cells image
         self.p1 = graphics.ViewBox(parent=self, lockAspect=True, name="plot1",
@@ -295,6 +295,12 @@ class MainWindow(QMainWindow):
         layout.setColumnMinimumWidth(1, 1)
         layout.setHorizontalSpacing(20)
         #self.win.scene().sigMouseClicked.connect(self.plot_clicked)
+
+        
+        self.khzwin = pg.GraphicsLayoutWidget()
+        self.khzwin.move(600, 0)
+        self.khzwin.resize(1000, 500)
+        self.l0.addWidget(self.khzwin, 1, 18, b0 - 1, 15)
 
     def keyPressEvent(self, event):
         if self.loaded:
@@ -411,6 +417,9 @@ class MainWindow(QMainWindow):
         M = masks.draw_masks(self)
         masks.plot_masks(self, M)
         traces.plot_trace(self)
+
+        self.khzstim.plot_analysis(self.khzwin, self.imerge, self.Fcell, self.Fneu, self.Spks)
+    
         if self.zoomtocell:
             self.zoom_to_cell()
         self.p1.show()

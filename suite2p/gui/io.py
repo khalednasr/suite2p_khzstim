@@ -107,9 +107,9 @@ def make_masks_and_enable_buttons(parent):
 
 
 def enable_views_and_classifier(parent):
-    for b in range(9):
-        parent.quadbtns.button(b).setEnabled(True)
-        parent.quadbtns.button(b).setStyleSheet(parent.styleUnpressed)
+    # for b in range(9):
+    #     parent.quadbtns.button(b).setEnabled(True)
+    #     parent.quadbtns.button(b).setStyleSheet(parent.styleUnpressed)
     for b in range(len(parent.view_names)):
         parent.viewbtns.button(b).setEnabled(True)
         parent.viewbtns.button(b).setStyleSheet(parent.styleUnpressed)
@@ -288,12 +288,18 @@ def load_files(name):
                 NN = Fcell.shape[0]
                 redcell = np.zeros((NN,), "bool")
                 probredcell = np.zeros((NN,), np.float32)
+        try:
+            khzstim = io.KHZStimDataAnalysis(name)
+        except (ValueError, OSError, RuntimeError, TypeError, NameError):
+            print('Failed to load khz stimulation data')
+            goodfolder = False
+        
     else:
         print("incorrect file, not a stat.npy")
         return None
 
     if goodfolder:
-        return stat, ops, Fcell, Fneu, Spks, iscell, probcell, redcell, probredcell, hasred
+        return stat, ops, Fcell, Fneu, Spks, iscell, probcell, redcell, probredcell, hasred, khzstim
     else:
         print("stat.npy found, but other files not in folder")
         return None
@@ -313,7 +319,7 @@ def load_proc(parent):
 
 
 def load_to_GUI(parent, basename, procs):
-    stat, ops, Fcell, Fneu, Spks, iscell, probcell, redcell, probredcell, hasred = procs
+    stat, ops, Fcell, Fneu, Spks, iscell, probcell, redcell, probredcell, hasred, khzstim = procs
     parent.basename = basename
     parent.stat = stat
     parent.ops = ops
@@ -325,6 +331,7 @@ def load_to_GUI(parent, basename, procs):
     parent.redcell = redcell.astype("bool")
     parent.probredcell = probredcell
     parent.hasred = hasred
+    parent.khzstim = khzstim
     parent.notmerged = np.ones_like(parent.iscell).astype("bool")
     for n in range(len(parent.stat)):
         if parent.hasred:

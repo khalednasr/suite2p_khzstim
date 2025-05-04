@@ -5,7 +5,6 @@ import numpy as np
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QLabel, QComboBox, QPushButton, QLineEdit, QCheckBox
 
-
 def plot_trace(parent):
     parent.p3.clear()
     ax = parent.p3.getAxis("left")
@@ -81,6 +80,7 @@ def plot_trace(parent):
     #parent.p3.setXRange(0,parent.Fcell.shape[1])
     parent.p3.setYRange(parent.fmin, parent.fmax)
 
+    parent.khzstim.plot_stim(parent.p3)
 
 def make_buttons(parent, b0):
     # combo box to decide what kind of activity to view
