@@ -70,8 +70,8 @@ class KHZStimDataAnalysis:
 
     def plot_stim(self, tracebox):
         for frame_index, phase, pamp in zip(self.pulse_frames, self.phases, self.pamps):
-            # tracebox.addItem(pg.InfiniteLine(frame_index, label=f'phi={phase}\namp={int(pamp)}', pen=(255,0,0,125)))
-            tracebox.addItem(pg.InfiniteLine(frame_index, pen=(255,0,0,125)))
+            tracebox.addItem(pg.InfiniteLine(frame_index, label=f'phi={phase}\namp={int(pamp)}', pen=(255,255,0,125)))
+            # tracebox.addItem(pg.InfiniteLine(frame_index, pen=pg.mkPen(color=(255,0,0,200), width=2)))
         
     def plot_analysis(self, graphics_layout, selected, f, fneu, spikes):
         # selected = [0, 49, 3, 24, 81, 35, 7]

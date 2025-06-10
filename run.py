@@ -8,8 +8,9 @@ trial = 'trial0'
 
 trial_subpath = f'{exp}/{culture}/{trial}'
 
-local_data_dir = 'D:\\nextcloud\\work\\data\\calcium'
-# local_data_dir = 'D:\\User\\AG_Dean\\Hana_Sheldon'
+# local_data_dir = 'C:/Users/knasr/Nextcloud/work/data/calcium'
+# local_data_dir = 'D:\\nextcloud\\work\\data\\calcium'
+local_data_dir = 'D:\\User\\AG_Dean\\Hana_Sheldon'
 remote_data_dir = '/home/khzstimpi/data'
 
 trial_dir = os.path.join(local_data_dir,trial_subpath)

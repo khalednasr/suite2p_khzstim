@@ -356,7 +356,6 @@ class BinaryPlayer(QMainWindow):
         self.p2.setRange(xRange=(0, self.nframes),
                          yRange=(self.ft.min(), self.ft.max()), padding=0.0)
         self.p2.setLimits(xMin=0, xMax=self.nframes)
-        print(self.khzstim)
         self.khzstim.plot_stim(self.p2)
 
     def open(self):
